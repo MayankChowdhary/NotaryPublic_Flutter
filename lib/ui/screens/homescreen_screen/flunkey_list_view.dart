@@ -36,12 +36,12 @@ class ProductListView extends StatelessWidget {
                   child: Row(
                     children: [
                       CachedNetworkImage(
-                        height: 100,
-                        width: 100,
+                        height: 60,
+                        width: 60,
                         imageUrl: Strings.iconUrl,
                         placeholder: (context, url) =>
                            Container(
-                             margin: EdgeInsets.all(30),
+                             margin: EdgeInsets.all(10),
                                child: CircularProgressIndicator()
                            ),
                         errorWidget: (context, url, error) =>
@@ -66,7 +66,7 @@ class ProductListView extends StatelessWidget {
                                         fontWeight: FontWeight.bold))),
                             Padding(
                               padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                                  const EdgeInsets.only(top: 2.0, bottom: 2.0),
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text("${model?[index].email}",
