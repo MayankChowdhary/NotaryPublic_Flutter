@@ -11,7 +11,7 @@ import '../../widgets/dipslay_snackbar.dart';
 class ProductListView extends StatelessWidget {
   ProductListView(this.model, {super.key});
 
-  final List<Leads>? model;
+  final List<Leads?> model;
   String quantity = "1";
   var encoder = new JsonEncoder.withIndent("     ");
 
@@ -26,7 +26,7 @@ class ProductListView extends StatelessWidget {
           margin: const EdgeInsets.all(8.0),
           child: GestureDetector(
             onTap: () => {
-              displaySnackbar(context, "${model?[index].firstName} selected!")
+              displaySnackbar(context, "${model?[index]?.firstName} selected!")
             },
             child: Card(
               elevation: 3,
@@ -57,7 +57,7 @@ class ProductListView extends StatelessWidget {
                           Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                  "${model?[index].firstName} ${model?[index].lastName}",
+                                  "${model?[index]?.firstName} ${model?[index]?.lastName}",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 18,
@@ -68,7 +68,7 @@ class ProductListView extends StatelessWidget {
                                 const EdgeInsets.only(top: 2.0, bottom: 2.0),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("${model?[index].email}",
+                              child: Text("${model?[index]?.email}",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 16,

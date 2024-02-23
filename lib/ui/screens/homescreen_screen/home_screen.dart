@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notary_public_flutter/controller/cubit/search_cubit.dart';
 
 import '../../../controller/cubit/internet_cubit.dart';
 import '../../../data/models/flunkey_model.dart';
@@ -66,20 +67,26 @@ class _ProductListState extends State<ProductListScreen> {
                     if (state is slb.SongLoadingState) {
                       return loadingWidget();
                     } else if (state is slb.SongLoadedState) {
-                      List<Leads>  filteredList = state.items;
-                        /*filteredList = state.items
-                            .where((i) => i.firstName == _value)
-                            .toList();*/
-                      return  Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            SearchBarApp(filteredList),
-                            SizedBox(height: 20),
-                            ProductListView(filteredList),
-                          ],
-                        ),
-                      );
+                      List<Leads> filteredList = state.items;
+                return BlocBuilder<SearchCubit, SearchState>(builder: (context, searchState) {
+                     if((searchState is SearchFinished) && searchState.searchData.isNotEmpty){
+                       filteredList = searchState.searchData;
+                     }else{
+                       filteredList = state.items;
+                     }
+                     return  Expanded(
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.stretch,
+                         children: [
+                           SearchBarApp(filteredList),
+                           SizedBox(height: 20),
+                           ProductListView(filteredList),
+                         ],
+                       ),
+                     );
+                   });
+
+
                     } else if (state is slb.SongErrorState) {
                       return showMessageView(message: "Loading Products...");
                     } else {

@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notary_public_flutter/controller/cubit/search_cubit.dart';
 import 'package:notary_public_flutter/ui/screens/homescreen_screen/home_screen.dart';
 import 'package:notary_public_flutter/utils/constants/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +47,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<InternetCubit>(
           create: (internetCubitContext) =>
               InternetCubit(connectivity: connectivity),
+        ),
+        BlocProvider<SearchCubit>(
+          create: (searchCubitContext) =>
+              SearchCubit(),
         ),
         BlocProvider<slb.SongBloc>(
             create: (songBlocContext) => slb.SongBloc(productRepository)),

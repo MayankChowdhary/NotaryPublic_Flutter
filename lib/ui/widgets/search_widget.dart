@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notary_public_flutter/controller/cubit/search_cubit.dart';
 
 import '../../data/models/flunkey_model.dart';
 
@@ -30,7 +31,7 @@ class SearchBox extends State<SearchBarApp> {
             onTap: () {
               controller.openView();
             },
-            onChanged: (_) {
+            onChanged: (value) {
               controller.openView();
             },
             onSubmitted: (value) {
@@ -40,14 +41,18 @@ class SearchBox extends State<SearchBarApp> {
           );
         }, suggestionsBuilder:
                 (BuildContext context, SearchController controller) {
+                  BlocProvider.of<SearchCubit>(context)
+                      .startSearch(controller.text, hintList);
           return List<Widget>.generate(hintList.length, (int index) {
-            final String item = hintList[index].firstName.toString() +
-                hintList[index].lastName.toString();
+            final String item = (hintList[index].firstName).toString() +
+                (hintList[index].lastName).toString();
             if (item.toLowerCase().contains(controller.text.toLowerCase())) {
               return ListTile(
                 title: Text(item),
                 onTap: () {
                   setState(() {
+                    BlocProvider.of<SearchCubit>(context)
+                        .startSearch(item, hintList);
                     controller.closeView(item);
                   });
                 },
