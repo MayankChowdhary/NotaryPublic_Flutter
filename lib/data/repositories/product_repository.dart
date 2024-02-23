@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/constants/strings.dart';
-import '../models/flunkey_model.dart';
+import '../models/product_model.dart';
 
 class ProductRepository {
   final queryParameters = {
@@ -18,8 +18,8 @@ class ProductRepository {
       debugPrint(response.body);
       return productModelFromJson(response.body);
     } else {
-      debugPrint("Failed to load Songs");
-      throw Exception("Failed to load songs");
+      debugPrint("Failed to load Products");
+      throw Exception("Failed to load products");
     }
   }
 }

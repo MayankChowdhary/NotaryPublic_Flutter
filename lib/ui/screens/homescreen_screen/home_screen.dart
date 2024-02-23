@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notary_public_flutter/controller/cubit/search_cubit.dart';
 
+import '../../../controller/bloc/product_list_bloc/product_list_bloc.dart' as slb;
 import '../../../controller/cubit/internet_cubit.dart';
-import '../../../data/models/flunkey_model.dart';
+import '../../../data/models/product_model.dart';
 import '../../../utils/constants/strings.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/message_dialog.dart';
 import '../../widgets/message_view.dart';
-import '../../../controller/bloc/flunkey_list_bloc/flunkey_list_bloc.dart'
-    as slb;
 import '../../widgets/navigation_drawer.dart';
 import '../../widgets/search_widget.dart';
-import 'flunkey_list_view.dart';
+import 'product_list_view.dart';
 
 class ProductListScreen extends StatefulWidget {
   static const routeName = Strings.homeScreenRoute;
@@ -34,7 +33,7 @@ class _ProductListState extends State<ProductListScreen> {
     /* final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     String trackId  = args.arg1!;*/
 
-    BlocProvider.of<slb.SongBloc>(context).add(slb.LoadSongListEvent());
+    BlocProvider.of<slb.ProductBloc>(context).add(slb.LoadProductListEvent());
 
     return Scaffold(
       appBar: AppBar(
@@ -60,11 +59,11 @@ class _ProductListState extends State<ProductListScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                BlocBuilder<slb.SongBloc, slb.SongListState>(
+                BlocBuilder<slb.ProductBloc, slb.ProductListState>(
                   builder: (context, state) {
-                    if (state is slb.SongLoadingState) {
+                    if (state is slb.ProductLoadingState) {
                       return loadingWidget();
-                    } else if (state is slb.SongLoadedState) {
+                    } else if (state is slb.ProductLoadedState) {
                       List<Leads> filteredList = state.items;
                       return BlocBuilder<SearchCubit, SearchState>(
                           builder: (context, searchState) {
@@ -85,7 +84,7 @@ class _ProductListState extends State<ProductListScreen> {
                           ),
                         );
                       });
-                    } else if (state is slb.SongErrorState) {
+                    } else if (state is slb.ProductErrorState) {
                       return showMessageView(message: "Loading Products...");
                     } else {
                       return showMessageView(message: "Loading Products...");

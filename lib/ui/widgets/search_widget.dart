@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notary_public_flutter/controller/cubit/search_cubit.dart';
 
-import '../../data/models/flunkey_model.dart';
+import '../../data/models/product_model.dart';
 
 class SearchBarApp extends StatefulWidget {
   final List<Leads> hintList;

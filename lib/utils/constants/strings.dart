@@ -6,7 +6,7 @@ class Strings {
   static const String homeScreenRoute = '/';
 
   // HomeScreen
-  static const homeScreenTitle = 'Trending Songs';
+  static const homeScreenTitle = 'Product';
   static const detailsScreenTitle = 'Product Details';
   static const homeScreenCenterText = 'Product Store';
   static  String jsonDb  = "";

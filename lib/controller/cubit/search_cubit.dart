@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:notary_public_flutter/data/models/flunkey_model.dart';
+import 'package:notary_public_flutter/data/models/product_model.dart';
 
 import '../../utils/constants/connection_types.dart';
 

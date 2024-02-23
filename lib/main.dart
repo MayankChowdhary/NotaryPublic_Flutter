@@ -9,14 +9,13 @@ import 'package:notary_public_flutter/ui/screens/homescreen_screen/home_screen.d
 import 'package:notary_public_flutter/utils/constants/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'controller/bloc/flunkey_list_bloc/flunkey_list_bloc.dart' as slb;
+import 'controller/bloc/product_list_bloc/product_list_bloc.dart' as slb;
 import 'controller/cubit/internet_cubit.dart';
 import 'core/router/app_router.dart';
-import 'data/repositories/flunkey_repository.dart';
+import 'data/repositories/product_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Strings.jsonDb = await rootBundle.loadString('assets/product_db.json');
   runApp(MyApp(
     appRouter: AppRouter(),
     initialRoute: '/',
@@ -52,8 +51,8 @@ class MyApp extends StatelessWidget {
           create: (searchCubitContext) =>
               SearchCubit(),
         ),
-        BlocProvider<slb.SongBloc>(
-            create: (songBlocContext) => slb.SongBloc(productRepository)),
+        BlocProvider<slb.ProductBloc>(
+            create: (songBlocContext) => slb.ProductBloc(productRepository)),
       ],
       child: MaterialApp(
         title: 'Product Demo',

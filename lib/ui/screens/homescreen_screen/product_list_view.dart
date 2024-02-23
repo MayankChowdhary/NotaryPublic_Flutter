@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../data/models/flunkey_model.dart';
+import '../../../data/models/product_model.dart';
 import '../../../utils/constants/strings.dart';
 import '../../widgets/dipslay_snackbar.dart';
 
