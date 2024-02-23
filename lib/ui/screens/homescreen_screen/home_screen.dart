@@ -10,6 +10,7 @@ import '../../widgets/message_view.dart';
 import '../../../controller/bloc/flunkey_list_bloc/flunkey_list_bloc.dart'
     as slb;
 import '../../widgets/navigation_drawer.dart';
+import '../../widgets/search_widget.dart';
 import 'flunkey_list_view.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -22,32 +23,7 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductListScreen> {
-  String? _value = 'ALL';
-  List<DropdownMenuItem<String>> menuItems = [
-    new DropdownMenuItem(
-      child: new Text("All Category"),
-      value: "ALL",
-    )
-  ];
 
-  void addDropDownItems(List<Leads> model) {
-    menuItems.clear();
-    menuItems.add(new DropdownMenuItem(
-      child: new Text("All Category"),
-      value: "ALL",
-    ));
-    List<String> catItems = [];
-    model.forEach((element) {
-      catItems.add(element.firstName.toString());
-    });
-    var distinctCat = catItems.toSet().toList();
-    distinctCat.forEach((element) {
-      menuItems.add(new DropdownMenuItem(
-        child: new Text(element),
-        value: element,
-      ));
-    });
-  }
 
   @override
   void initState() {
@@ -71,21 +47,6 @@ class _ProductListState extends State<ProductListScreen> {
               "Notary Public",
               style: TextStyle(color: Colors.white),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 50.0),
-              child: new Theme(
-                child: new DropdownButtonHideUnderline(
-                  child: new DropdownButton<String>(
-                    value: _value,
-                    items: menuItems,
-                    onChanged: (String? value) {
-                      setState(() => _value = value);
-                    },
-                  ),
-                ),
-                data: new ThemeData.dark(),
-              ),
-            ),
           ],
         ),
         backgroundColor: const Color(0xff764abc),
@@ -105,16 +66,20 @@ class _ProductListState extends State<ProductListScreen> {
                     if (state is slb.SongLoadingState) {
                       return loadingWidget();
                     } else if (state is slb.SongLoadedState) {
-                      addDropDownItems(state.items);
-                      List<Leads> filteredList = [];
-                      if (_value == "ALL") {
-                        filteredList = state.items;
-                      } else {
-                        filteredList = state.items
+                      List<Leads>  filteredList = state.items;
+                        /*filteredList = state.items
                             .where((i) => i.firstName == _value)
-                            .toList();
-                      }
-                      return ProductListView(filteredList);
+                            .toList();*/
+                      return  Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            SearchBarApp(filteredList),
+                            SizedBox(height: 20),
+                            ProductListView(filteredList),
+                          ],
+                        ),
+                      );
                     } else if (state is slb.SongErrorState) {
                       return showMessageView(message: "Loading Products...");
                     } else {
