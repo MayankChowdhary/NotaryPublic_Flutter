@@ -24,8 +24,6 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductListScreen> {
-
-
   @override
   void initState() {
     super.initState();
@@ -68,25 +66,25 @@ class _ProductListState extends State<ProductListScreen> {
                       return loadingWidget();
                     } else if (state is slb.SongLoadedState) {
                       List<Leads> filteredList = state.items;
-                return BlocBuilder<SearchCubit, SearchState>(builder: (context, searchState) {
-                     if((searchState is SearchFinished) && searchState.searchData.isNotEmpty){
-                       filteredList = searchState.searchData;
-                     }else{
-                       filteredList = state.items;
-                     }
-                     return  Expanded(
-                       child: Column(
-                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                         children: [
-                           SearchBarApp(filteredList),
-                           SizedBox(height: 20),
-                           ProductListView(filteredList),
-                         ],
-                       ),
-                     );
-                   });
-
-
+                      return BlocBuilder<SearchCubit, SearchState>(
+                          builder: (context, searchState) {
+                        if ((searchState is SearchFinished) &&
+                            searchState.searchData.isNotEmpty) {
+                          filteredList = searchState.searchData;
+                        } else {
+                          filteredList = state.items;
+                        }
+                        return Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SearchBarApp(filteredList),
+                              SizedBox(height: 20),
+                              ProductListView(filteredList),
+                            ],
+                          ),
+                        );
+                      });
                     } else if (state is slb.SongErrorState) {
                       return showMessageView(message: "Loading Products...");
                     } else {
